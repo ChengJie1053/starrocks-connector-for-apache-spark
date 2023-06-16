@@ -27,7 +27,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.starrocks</groupId>
-    <artifactId>starrocks-spark3.3.1_2.12</artifactId>
+    <artifactId>starrocks-spark3.2.1_2.12</artifactId>
     <version>1.0.0</version>
 
     <properties>
