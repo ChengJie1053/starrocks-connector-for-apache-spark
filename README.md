@@ -23,3 +23,8 @@ Please refer to [here](docs/spark-starrocks-connector.md).
 
 A big thanks for your attention to StarRocks! 
 In order to accept your pull request, please follow the [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## maven compile command
+```text
+mvn clean install  -Dmaven.test.skip=true
+```
