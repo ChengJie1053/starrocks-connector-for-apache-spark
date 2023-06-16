@@ -27,12 +27,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.starrocks</groupId>
-    <artifactId>starrocks-spark${env.STARROCKS_SPARK_BASE_VERSION}_${env.STARROCKS_SCALA_VERSION}</artifactId>
+    <artifactId>starrocks-spark3.3.1_2.12</artifactId>
     <version>1.0.0</version>
 
     <properties>
-        <sr_scala.version>${env.STARROCKS_SCALA_VERSION}</sr_scala.version>
-        <sr_spark.version>${env.STARROCKS_SPARK_VERSION}</sr_spark.version>
+        <sr_scala.version>2.12</sr_scala.version>
+        <sr_spark.version>3.2.1</sr_spark.version>
         <libthrift.version>0.14.0</libthrift.version>
         <arrow.version>5.0.0</arrow.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -115,6 +115,7 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>2.12.10</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.starrocks</groupId>
@@ -126,12 +127,19 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.29</version>
+            <scope>provided</scope>
         </dependency>
 
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba.fastjson2</groupId>-->
+        <!--            <artifactId>fastjson2</artifactId>-->
+        <!--            <version>2.0.1</version>-->
+        <!--        </dependency>-->
         <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-            <version>2.0.1</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.75</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
@@ -155,16 +163,19 @@
                     <artifactId>javax.annotation-api</artifactId>
                 </exclusion>
             </exclusions>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.arrow</groupId>
             <artifactId>arrow-vector</artifactId>
             <version>${arrow.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.arrow</groupId>
             <artifactId>arrow-memory-netty</artifactId>
             <version>${arrow.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!--Test-->
@@ -258,32 +269,32 @@
                             <exclude>org.slf4j:*</exclude>
                         </excludes>
                     </artifactSet>
-                    <relocations>
-                        <relocation>
-                            <pattern>org.apache.arrow</pattern>
-                            <shadedPattern>com.starrocks.shaded.org.apache.arrow</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>io.netty</pattern>
-                            <shadedPattern>com.starrocks.shaded.io.netty</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>com.fasterxml.jackson</pattern>
-                            <shadedPattern>com.starrocks.shaded.com.fasterxml.jackson</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.apache.commons.codec</pattern>
-                            <shadedPattern>com.starrocks.shaded.org.apache.commons.codec</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>com.google.flatbuffers</pattern>
-                            <shadedPattern>com.starrocks.shaded.com.google.flatbuffers</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.apache.thrift</pattern>
-                            <shadedPattern>com.starrocks.shaded.org.apache.thrift</shadedPattern>
-                        </relocation>
-                    </relocations>
+                    <!--                    <relocations>-->
+                    <!--                        <relocation>-->
+                    <!--                            <pattern>org.apache.arrow</pattern>-->
+                    <!--                            <shadedPattern>com.starrocks.shaded.org.apache.arrow</shadedPattern>-->
+                    <!--                        </relocation>-->
+                    <!--                        <relocation>-->
+                    <!--                            <pattern>io.netty</pattern>-->
+                    <!--                            <shadedPattern>com.starrocks.shaded.io.netty</shadedPattern>-->
+                    <!--                        </relocation>-->
+                    <!--                        <relocation>-->
+                    <!--                            <pattern>com.fasterxml.jackson</pattern>-->
+                    <!--                            <shadedPattern>com.starrocks.shaded.com.fasterxml.jackson</shadedPattern>-->
+                    <!--                        </relocation>-->
+                    <!--                        <relocation>-->
+                    <!--                            <pattern>org.apache.commons.codec</pattern>-->
+                    <!--                            <shadedPattern>com.starrocks.shaded.org.apache.commons.codec</shadedPattern>-->
+                    <!--                        </relocation>-->
+                    <!--                        <relocation>-->
+                    <!--                            <pattern>com.google.flatbuffers</pattern>-->
+                    <!--                            <shadedPattern>com.starrocks.shaded.com.google.flatbuffers</shadedPattern>-->
+                    <!--                        </relocation>-->
+                    <!--                        <relocation>-->
+                    <!--                            <pattern>org.apache.thrift</pattern>-->
+                    <!--                            <shadedPattern>com.starrocks.shaded.org.apache.thrift</shadedPattern>-->
+                    <!--                        </relocation>-->
+                    <!--                    </relocations>-->
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>
@@ -302,37 +313,37 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.8</version>
-                <configuration>
-                    <excludes>
-                        <exclude>**/thrift/**</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>check</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.jacoco</groupId>-->
+            <!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+            <!--                <version>0.7.8</version>-->
+            <!--                <configuration>-->
+            <!--                    <excludes>-->
+            <!--                        <exclude>**/thrift/**</exclude>-->
+            <!--                    </excludes>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>prepare-agent</id>-->
+            <!--                        <goals>-->
+            <!--                            <goal>prepare-agent</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                    <execution>-->
+            <!--                        <id>check</id>-->
+            <!--                        <goals>-->
+            <!--                            <goal>check</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                    <execution>-->
+            <!--                        <id>report</id>-->
+            <!--                        <phase>test</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>report</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
