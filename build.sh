@@ -52,7 +52,7 @@ if [ $1 == 2 ]; then
     export STARROCKS_SCALA_VERSION=2.11
 elif [ $1 == 3 ]; then
     export STARROCKS_SPARK_BASE_VERSION=3
-    export STARROCKS_SPARK_VERSION=3.3.1
+    export STARROCKS_SPARK_VERSION=3.2.1
     export STARROCKS_SCALA_VERSION=2.12
 else
     echo "Error: spark version options: 2 or 3"
