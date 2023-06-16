@@ -1,6 +1,5 @@
 package com.starrocks.connector.spark.sql
 
-import com.alibaba.fastjson2.{JSON, JSONObject}
 import com.starrocks.data.load.stream.StreamLoadManager
 import com.starrocks.data.load.stream.DefaultStreamLoadManager
 import com.starrocks.data.load.stream.properties.StreamLoadProperties
@@ -24,7 +23,7 @@ private[sql] class StarRocksSink private() extends Sink with Serializable {
     this.props = props
     this.sinkManager = new DefaultStreamLoadManager(props)
 
-//    sinkManager.init()
+    //    sinkManager.init()
   }
 
   override def addBatch(batchId: Long, data: DataFrame): Unit = {
